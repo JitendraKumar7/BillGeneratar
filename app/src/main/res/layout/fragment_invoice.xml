@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    tools:context=".ui.sub.InvoiceFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_6sdp"
+                android:background="@color/colorBlack"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_80sdp"
+                    android:background="@color/colorWhite"
+                    android:gravity="center"
+                    android:text="Tax Invoice"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_1sdp">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/_220sdp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:orientation="vertical">
+
+                        <android.support.design.widget.TextInputLayout
+                            style="@style/MyAppearance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorWhite"
+                                android:hint="BH INFOTECH"
+                                android:text="GROUND FLOOR, 2421, DLF PHASE-IV,\nGURGAON. 8527046414\nGSTIN/UIN: 06ANUPP1663R1ZZ\nState Name : Haryana, Code : 06\nE-Mail : bhinfotech50@gmail.com\n"
+                                android:textColor="@color/colorBlack"
+                                android:textColorHint="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+                        <android.support.design.widget.TextInputLayout
+                            style="@style/MyAppearance"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="@dimen/_1sdp"
+                            android:layout_weight="1">
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorWhite"
+                                android:hint="BUYER"
+                                android:text="Hargun Laser Metal Cutting\nK-81, Ground Floor,\nUdyog Nagar, Peeragarhi\nState Name : Delhi, Code : 07\n"
+                                android:textColor="@color/colorBlack"
+                                android:textColorHint="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </android.support.design.widget.TextInputLayout>
+
+
+                    </LinearLayout>
+
+                    <TableLayout
+                        android:layout_width="@dimen/_280sdp"
+                        android:layout_height="wrap_content">
+
+                        <TableRow>
+
+                            <TextView
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_marginEnd="@dimen/_1sdp"
+                                android:background="@color/colorWhite"
+                                android:text="Invoice No."
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                            <TextView
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:background="@color/colorWhite"
+                                android:text="Dated"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="@dimen/_1sdp">
+
+                            <TextView
+                                android:id="@+id/txtInvoiceNo"
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_marginEnd="@dimen/_1sdp"
+                                android:background="@color/colorWhite"
+                                android:text="BHI/17-18/0004"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/txtInvoiceDate"
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:background="@color/colorWhite"
+                                android:text="1-Oct-2017"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp"
+                                android:textStyle="bold" />
+
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="@dimen/_1sdp">
+
+                            <TextView
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_marginEnd="@dimen/_1sdp"
+                                android:background="@color/colorWhite"
+                                android:text="Delivery Note"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                            <TextView
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:background="@color/colorWhite"
+                                android:text="Mode/Terms of Payment"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="@dimen/_1sdp">
+
+                            <TextView
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_marginEnd="@dimen/_1sdp"
+                                android:background="@color/colorWhite"
+                                android:text="Supplier’s Ref"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                            <TextView
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:background="@color/colorWhite"
+                                android:text="Other Reference(s)"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="@dimen/_1sdp">
+
+                            <TextView
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_marginEnd="@dimen/_1sdp"
+                                android:background="@color/colorWhite"
+                                android:text="Buyer’s Order No."
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                            <TextView
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:background="@color/colorWhite"
+                                android:text="Dated"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="@dimen/_1sdp">
+
+                            <TextView
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_marginEnd="@dimen/_1sdp"
+                                android:background="@color/colorWhite"
+                                android:text="Despatch Document No."
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                            <TextView
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:background="@color/colorWhite"
+                                android:text="Delivery Note Date"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="@dimen/_1sdp">
+
+                            <TextView
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_marginEnd="@dimen/_1sdp"
+                                android:background="@color/colorWhite"
+                                android:text="Despatched through"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                            <TextView
+                                android:layout_width="@dimen/_140sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                android:background="@color/colorWhite"
+                                android:text="Destination"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </TableRow>
+
+                        <TableRow android:layout_marginTop="@dimen/_1sdp">
+
+                            <TextView
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_weight="1"
+                                android:background="@color/colorWhite"
+                                android:text="Terms of Delivery "
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </TableRow>
+
+                    </TableLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_1sdp"
+                    android:layout_marginRight="@dimen/_1sdp"
+                    android:layout_marginBottom="@dimen/_1sdp">
+
+                    <TextView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center"
+                        android:text="Sl"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center"
+                        android:text="Description of Goods "
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center"
+                        android:text="HSN/SAC "
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center"
+                        android:text="Quantity "
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center"
+                        android:text="Rate "
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center"
+                        android:text="Per "
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center"
+                        android:text="Disc.% "
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center"
+                        android:text="Amount "
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/rowLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_1sdp"
+                    android:layout_marginRight="@dimen/_1sdp"
+                    android:layout_marginBottom="@dimen/_1sdp"
+                    android:orientation="vertical" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_1sdp"
+                    android:layout_marginRight="@dimen/_1sdp"
+                    android:layout_marginBottom="@dimen/_1sdp">
+
+
+                    <TextView
+                        android:layout_width="@dimen/_232sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center"
+                        android:text="Total"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:id="@+id/txtQuantity"
+                        android:layout_width="@dimen/_60sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center"
+                        android:text="4 Nos"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="@dimen/_127sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:id="@+id/txtAmount"
+                        android:layout_width="@dimen/_80sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginEnd="@dimen/_1sdp"
+                        android:background="@color/colorWhite"
+                        android:gravity="center"
+                        android:text="\u20B9 34139"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_1sdp"
+                    android:layout_marginRight="@dimen/_1sdp"
+                    android:background="@color/colorWhite">
+
+
+                    <TextView
+                        android:layout_width="@dimen/_135sdp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:minHeight="@dimen/_90sdp"
+                        android:text="Tax Amount (in words) :"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:id="@+id/txtWordAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/_30sdp"
+                        android:text="INR Eight Thousand Six Hundred Ninety Four and Sixty Five paise Only"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_1sdp"
+                    android:layout_marginRight="@dimen/_1sdp"
+                    android:background="@color/colorWhite">
+
+                    <TextView
+                        android:layout_width="@dimen/_128sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:gravity="center_vertical"
+                        android:text="Company’s PAN :"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="ANUPP1663R"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_1sdp"
+                    android:layout_marginRight="@dimen/_1sdp"
+                    android:layout_marginBottom="@dimen/_1sdp"
+                    android:background="@color/colorWhite">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/_30sdp"
+                        android:text="Declaration\nWe declare that this invoice shows the actual price of the goods described and that all particulars are true and correct.\n"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".4"
+                        android:background="@color/colorWhite" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:minHeight="@dimen/_30sdp"
+                        android:text="Company’s Bank Details\nBank Name : IDBI BANK\nA/c No. : 0171102000014359\nBranch &amp; IFS Code : IBKL0000171\n"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_1sdp"
+                    android:layout_marginRight="@dimen/_1sdp"
+                    android:layout_marginBottom="@dimen/_1sdp">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="@dimen/_1sdp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorWhite"
+                            android:minHeight="@dimen/_30sdp"
+                            android:text="Customer’s Seal and Signature"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_12sdp" />
+
+                        <ImageView
+                            android:id="@+id/ivSignature"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_60sdp"
+                            android:background="@color/colorWhite"
+                            android:contentDescription="@string/app_name" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/colorWhite"
+                        android:gravity="center_vertical|end"
+                        android:orientation="vertical"
+                        android:text="for BH INFOTECH"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/_12sdp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/_40sdp"
+                            android:text="for BH INFOTECH"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_12sdp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical|end"
+                            android:minHeight="@dimen/_40sdp"
+                            android:text="Authorised Signatory"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_80sdp"
+                    android:background="@color/colorWhite"
+                    android:gravity="center"
+                    android:text="This is a Computer Generated Invoice"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="@dimen/_12sdp" />
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/btnShare"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="@dimen/_6sdp"
+        android:background="@drawable/bg_oval"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_screen_share" />
+
+</FrameLayout>
