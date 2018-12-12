@@ -17,6 +17,8 @@ import com.agira.bhinfotech.R;
 import com.agira.bhinfotech.lib.CreateDocument;
 import com.agira.bhinfotech.lib.viewRenderer.AbstractViewRenderer;
 import com.agira.bhinfotech.ui.base.BaseFragment;
+import com.agira.bhinfotech.ui.dio.EmailDialogFragment;
+import com.agira.bhinfotech.ui.dio.MobileDialogFragment;
 import com.agira.bhinfotech.utility.Utility;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
@@ -50,19 +52,35 @@ public class ViewerFragment extends BaseFragment implements OnRenderListener,
     @BindView(R.id.pdfView)
     PDFView pdfView;
 
-    @OnClick({R.id.btnEmail,
+    @OnClick({R.id.btnPrint,
+            R.id.btnEmail,
             R.id.btnWhatsApp})
     public void onClick(View v) {
 
         switch (v.getId()) {
 
-            case R.id.btnEmail:
-                openEmailConversation("jitendra@angiratech.in");
+            case R.id.btnPrint:
+                try {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setPackage("com.dynamixsoftware.printershare");
+                    i.setDataAndType(fileURI, "application/pdf");
+                    startActivity(i);
+                } catch (Exception e) {
+                    Utility.log_d(e.getMessage(), e);
+                }
                 break;
 
-            case R.id.btnWhatsApp:
-                openWhatsAppConversation("918076219176");
+            case R.id.btnEmail: {
+                EmailDialogFragment.getInstance(fileURI)
+                        .show(getChildFragmentManager(), "Diag");
                 break;
+            }
+
+            case R.id.btnWhatsApp: {
+                MobileDialogFragment.getInstance(apkURI)
+                        .show(getChildFragmentManager(), "Diag");
+                break;
+            }
 
         }
     }
@@ -174,39 +192,6 @@ public class ViewerFragment extends BaseFragment implements OnRenderListener,
 
     public void onInitiallyRendered(int pages, float width, float height) {
         pdfView.fitToWidth(); // optionally pass page number
-    }
-
-
-    public void openEmailConversation(String emailId) {
-        try {
-            Uri uri = Uri.parse("mailto:" + emailId);
-            Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.putExtra(Intent.EXTRA_STREAM, fileURI);
-            intent.putExtra(Intent.EXTRA_SUBJECT, TAG);
-            intent.putExtra(Intent.EXTRA_TEXT, TEXT);
-            startActivity(intent);
-        } catch (Exception e) {
-            Utility.log_d(e.getMessage(), e);
-        }
-    }
-
-    public void openWhatsAppConversation(String number) {
-
-        try {
-            Intent intent = new Intent("android.intent.action.MAIN");
-            intent.putExtra("jid", number + "@s.whatsapp.net");
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            intent.putExtra(Intent.EXTRA_STREAM, apkURI);
-            intent.putExtra(Intent.EXTRA_TEXT, TEXT);
-            intent.setAction(Intent.ACTION_SEND);
-            intent.setPackage("com.whatsapp");
-            intent.setType("application/pdf");
-            startActivity(intent);
-
-        } catch (Exception e) {
-            Utility.log_d(e.getMessage(), e);
-        }
     }
 
 }

@@ -41,7 +41,7 @@ public class InvoiceFragment extends BaseFragment {
     LinearLayout rowLayout;
 
     private int count = 0;
-    private int price = 0;
+    private double price = 0;
 
     @BindViews({
             R.id.txtAmount, //0
@@ -65,7 +65,7 @@ public class InvoiceFragment extends BaseFragment {
             GestureOverlayViewDialog dialog = new GestureOverlayViewDialog(_activity) {
 
                 @Override
-                public void getSignature(Bitmap bitmap) {
+                protected void getSignature(Bitmap bitmap) {
                     ivSignature.setImageBitmap(bitmap);
                     dismiss();
                 }
@@ -95,12 +95,11 @@ public class InvoiceFragment extends BaseFragment {
             rowLayout.addView(invoice.onBindView(bean));
         }
 
-
         setTxtView(1, count);
         setTxtView(2, getInvoiceNo());
         setTxtView(4, getInvoiceDate());
         setTxtView(0, String.format("\u20B9 %s", price));
-        setTxtView(3, EnglishNumberToWords.convert(price));
+        setTxtView(3, EnglishNumberToWords.doubleConvert(price));
     }
 
     @Override
@@ -110,7 +109,7 @@ public class InvoiceFragment extends BaseFragment {
 
     class RowInvoice {
 
-        private View view;
+        private View _rowView;
 
         @BindViews({
                 R.id.row_txtSrNo, //0
@@ -138,12 +137,12 @@ public class InvoiceFragment extends BaseFragment {
             setTxtView(4, bean.getAllCount());
             setTxtView(2, bean.getAllPrice());
 
-            return view;
+            return _rowView;
         }
 
         RowInvoice(LayoutInflater inflater) {
-            this.view = inflater.inflate(R.layout.ui_row_invoice_item, null);
-            ButterKnife.bind(this, view);
+            this._rowView = inflater.inflate(R.layout.ui_row_invoice_item, null);
+            ButterKnife.bind(_rowView);
         }
 
         private void setTxtView(int index, String value) {

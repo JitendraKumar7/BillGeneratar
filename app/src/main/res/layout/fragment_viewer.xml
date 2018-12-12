@@ -17,6 +17,17 @@
         android:layout_gravity="end|bottom">
 
         <ImageView
+            android:id="@+id/btnPrint"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_margin="@dimen/_6sdp"
+            android:background="@drawable/bg_oval"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_print"
+            android:visibility="gone" />
+
+        <ImageView
             android:id="@+id/btnEmail"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
@@ -46,6 +57,7 @@
             android:scaleType="centerInside"
             android:src="@drawable/ic_share"
             android:visibility="gone" />
+
     </LinearLayout>
 
 </FrameLayout>

@@ -1,105 +1,69 @@
 package com.agira.bhinfotech.utility;
 
 import java.text.DecimalFormat;
+import java.util.StringTokenizer;
 
 //number to convert words android
 public class EnglishNumberToWords {
 
-    private static final String[] tensNames = {"", " ten", " twenty", " thirty", " forty",
-            " fifty", " sixty", " seventy", " eighty", " ninety"};
+    private static final String[] tens = {"", "", " Twenty", " Thirty",
+            " Forty", " Fifty", " Sixty", " Seventy", " Eighty", " Ninety"};
 
-    private static final String[] numNames = {"", " one", " two", " three", " four", " five",
-            " six", " seven", " eight", " nine", " ten", " eleven", " twelve", " thirteen",
-            " fourteen", " fifteen", " sixteen", " seventeen", " eighteen", " nineteen"};
-
-
+    private static final String[] units = {"", " One", " Two", " Three", " Four", " Five",
+            " Six", " Seven", " Eight", " Nine", " Ten", " Eleven", " Twelve", " Thirteen",
+            " Fourteen", " Fifteen", " Sixteen", " Seventeen", " Eighteen", " Nineteen"};
 
 
-    private static String convertLessThanOneThousand(int number) {
-        String soFar;
-
-        if (number % 100 < 20) {
-            soFar = numNames[number % 100];
-            number /= 100;
-        } else {
-            soFar = numNames[number % 10];
-            number /= 10;
-
-            soFar = tensNames[number % 10] + soFar;
-            number /= 10;
+    private static String convert(final int number) {
+        if (number < 0) {
+            return String.format("minus %s", convert(-number));
         }
-        if (number == 0)
-            return soFar;
-        return numNames[number] + " hundred" + soFar;
+
+        if (number < 20) {
+            return units[number];
+        }
+
+        if (number < 100) {
+            return String.format("%s%s%s", tens[number / 10], (number % 10 != 0) ? " " : "", units[number % 10]);
+        }
+
+        if (number < 1000) {
+            return String.format("%s Hundred %s%s", units[number / 100], (number % 100 != 0) ? " " : "", convert(number % 100));
+        }
+
+        if (number < 1000000) {
+            return String.format("%s Thousand %s%s", convert(number / 1000), (number % 1000 != 0) ? " " : "", convert(number % 1000));
+        }
+
+        if (number < 1000000000) {
+            return String.format("%s Million %s%s", convert(number / 1000000), (number % 1000000 != 0) ? " " : "", convert(number % 1000000));
+        }
+
+        return String.format("%s Billion %s%s", convert(number / 1000000000), (number % 1000000000 != 0) ? " " : "", convert(number % 1000000000));
     }
 
-    public static String convert(long number) {
-        // 0 to 999 999 999 999
-        if (number == 0) {
-            return "zero";
+    public static String doubleConvert(final double number) {
+        String result = String.valueOf(number);
+
+        StringTokenizer token = new StringTokenizer(result, ".");
+        String first = token.nextToken();
+        String last = token.nextToken();
+        try {
+            result = String.format("%s ", convert(Integer.parseInt(first)));
+            result = String.format("%s AND", result);
+            for (int i = 0; i < last.length(); i++) {
+                String get = convert(Integer.parseInt(String.valueOf(last.charAt(i))));
+                if (get.isEmpty()) {
+                    result = String.format("%s ZERO", result);
+                } else {
+                    result = String.format("%s %s", result, get);
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
         }
-
-        String snumber = Long.toString(number);
-
-        // pad with "0"
-        String mask = "000000000000";
-        DecimalFormat df = new DecimalFormat(mask);
-        snumber = df.format(number);
-
-        // XXXnnnnnnnnn
-        int billions = Integer.parseInt(snumber.substring(0, 3));
-        // nnnXXXnnnnnn
-        int millions = Integer.parseInt(snumber.substring(3, 6));
-        // nnnnnnXXXnnn
-        int hundredThousands = Integer.parseInt(snumber.substring(6, 9));
-        // nnnnnnnnnXXX
-        int thousands = Integer.parseInt(snumber.substring(9, 12));
-
-        String tradBillions;
-        switch (billions) {
-            case 0:
-                tradBillions = "";
-                break;
-            case 1:
-                tradBillions = convertLessThanOneThousand(billions) + " billion ";
-                break;
-            default:
-                tradBillions = convertLessThanOneThousand(billions) + " billion ";
-        }
-        String result = tradBillions;
-
-        String tradMillions;
-        switch (millions) {
-            case 0:
-                tradMillions = "";
-                break;
-            case 1:
-                tradMillions = convertLessThanOneThousand(millions) + " million ";
-                break;
-            default:
-                tradMillions = convertLessThanOneThousand(millions) + " million ";
-        }
-        result = result + tradMillions;
-
-        String tradHundredThousands;
-        switch (hundredThousands) {
-            case 0:
-                tradHundredThousands = "";
-                break;
-            case 1:
-                tradHundredThousands = "one thousand ";
-                break;
-            default:
-                tradHundredThousands = convertLessThanOneThousand(hundredThousands) + " thousand ";
-        }
-        result = result + tradHundredThousands;
-
-        String tradThousand;
-        tradThousand = convertLessThanOneThousand(thousands);
-        result = result + tradThousand;
-
-        // remove extra spaces!
-        return result.replaceAll("^\\s+", "").replaceAll("\\b\\s{2,}\\b", " ");
+        return String.format("INR %s Only!", result.replaceAll("^\\s+", "").replaceAll("\\b\\s{2,}\\b", " "));
     }
 
 }

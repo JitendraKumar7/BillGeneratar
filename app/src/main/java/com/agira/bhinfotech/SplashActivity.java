@@ -6,20 +6,24 @@ import android.os.Bundle;
 
 import com.agira.bhinfotech.ui.MainActivity;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity implements Runnable {
+
+
+    @Override
+    public void run() {
+        MainActivity.startActivity(SplashActivity.this);
+        // https://github.com/koush/ion
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                MainActivity.startActivity(SplashActivity.this);
+        final int DELAY = 3000;
+        Handler mHandler = new Handler();
+        mHandler.postDelayed(this, DELAY);
 
-            }
-        }, 3000);
     }
 
 }

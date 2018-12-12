@@ -4,21 +4,34 @@ import java.io.Serializable;
 
 public class Product implements Serializable {
 
-    private String name;
-    private String brand;
+    private int count = 0;
+
+    private double price;
+
+    private double discount;
+
+    private double final_price;
+
+    private String id;
+
+    private String title;
+
     private String image;
 
-    private int count = 0;
-    private int newPrice = 999;
-    private int oldPrice = 1200;
+    private String status;
+
+    private String created;
+
+    private String subtitle;
+
 
     public String getPrice() {
-        return "<del style=\"color:red;\"> &#8377;" + oldPrice + "</del> <strong> &#8377; <ins>" + newPrice + "</ins>!</strong>";
+        return "<del style=\"color:red;\"> &#8377;" + price + "</del> <strong> &#8377; <ins>" + final_price + "</ins>!</strong>";
     }
 
     public String getAllPrice() {
 
-        int total = count * newPrice;
+        double total = count * final_price;
         return String.format("\u20B9 %s", total);
     }
 
@@ -27,37 +40,23 @@ public class Product implements Serializable {
     }
 
     public String getName() {
-        return name;
-    }
-
-    public String getBrand() {
-        return brand;
+        return title;
     }
 
     public String getImage() {
         return image;
     }
 
-    public int getNewPrice() {
-        return count * newPrice;
+    public String getBrand() {
+        return subtitle;
+    }
+
+    public double getNewPrice() {
+        return count * final_price;
     }
 
     public String getAllCount() {
         return String.valueOf(count);
-    }
-
-    public Product(String name, String brand, String image) {
-        this.name = name;
-        this.brand = brand;
-        this.image = image;
-    }
-
-    public void setNewPrice(int newPrice) {
-        this.newPrice = newPrice;
-    }
-
-    public void setOldPrice(int oldPrice) {
-        this.oldPrice = oldPrice;
     }
 
     public void setCount(int count) {

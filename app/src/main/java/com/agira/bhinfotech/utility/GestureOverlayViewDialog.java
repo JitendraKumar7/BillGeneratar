@@ -52,7 +52,7 @@ public abstract class GestureOverlayViewDialog extends AlertDialog {
         }
     }
 
-    public abstract void getSignature(Bitmap bitmap);
+    protected abstract void getSignature(Bitmap bitmap);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

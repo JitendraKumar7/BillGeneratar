@@ -6,22 +6,35 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.agira.bhinfotech.R;
 import com.agira.bhinfotech.modal.Product;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public abstract class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.CustomViewHolder> {
+public class ProductAdapter extends RecyclerView.Adapter
+        <ProductAdapter.CustomViewHolder> implements Filterable {
 
     private List<Product> mDataList;
+    private List<Product> mDataListFilter;
 
-    protected abstract void onItemClick(View v, int position);
+    public List<Product> getDataList() {
+
+        return mDataList;
+    }
+
+    public ProductAdapter(List<Product> mDataList) {
+        this.mDataListFilter = mDataList;
+        this.mDataList = mDataList;
+    }
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
@@ -41,11 +54,29 @@ public abstract class ProductAdapter extends RecyclerView.Adapter<ProductAdapter
                 R.id.btnRemove})
         void onClick(View v) {
 
-            onItemClick(v, getPosition());
+            Product bean = mDataListFilter.get(getPosition());
+
+            switch (v.getId()) {
+
+                case R.id.btnAdd: {
+                    int count = bean.getCount();
+                    bean.setCount(count + 1);
+                    break;
+                }
+
+                case R.id.btnRemove: {
+                    int count = bean.getCount();
+                    bean.setCount(count - 1);
+                    break;
+                }
+
+            }
+
+            notifyItemChanged(getPosition());
         }
 
         void onBindData(int position) {
-            Product bean = mDataList.get(position);
+            Product bean = mDataListFilter.get(position);
 
             tvName.setText(bean.getName());
             tvDesc.setText(bean.getBrand());
@@ -57,10 +88,13 @@ public abstract class ProductAdapter extends RecyclerView.Adapter<ProductAdapter
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
     }
 
-    protected ProductAdapter(List<Product> mDataList) {
-        this.mDataList = mDataList;
+    @Override
+    public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
+
+        holder.onBindData(position);
     }
 
     @NonNull
@@ -73,14 +107,47 @@ public abstract class ProductAdapter extends RecyclerView.Adapter<ProductAdapter
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
+    public Filter getFilter() {
 
-        holder.onBindData(position);
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    mDataListFilter = mDataList;
+                } else {
+                    List<Product> filteredList = new LinkedList<>();
+                    for (Product row : mDataList) {
+
+                        // name match condition. this might differ depending on your requirement
+                        // here we are looking for name or phone number match
+                        if (row.getName().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+
+                    mDataListFilter = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mDataListFilter;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                mDataListFilter = (LinkedList<Product>) filterResults.values;
+
+                // refresh the list with filtered data
+                notifyDataSetChanged();
+            }
+        };
     }
 
     @Override
     public int getItemCount() {
-        return mDataList.size();
+
+        return mDataListFilter.size();
     }
 
 }

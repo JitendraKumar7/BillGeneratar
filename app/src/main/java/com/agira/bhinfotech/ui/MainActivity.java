@@ -3,16 +3,24 @@ package com.agira.bhinfotech.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.agira.bhinfotech.R;
 import com.agira.bhinfotech.adapter.ProductAdapter;
+import com.agira.bhinfotech.app.Networking;
+import com.agira.bhinfotech.modal.Response;
 import com.agira.bhinfotech.modal.Product;
+import com.agira.bhinfotech.modal.response.Home;
 import com.agira.bhinfotech.ui.base.BaseActivity;
 import com.agira.bhinfotech.utility.Utility;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -24,6 +32,12 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
+    @BindView(R.id.search_view)
+    MaterialSearchView mSearchView;
+
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
@@ -33,110 +47,109 @@ public class MainActivity extends BaseActivity {
     @OnClick(R.id.btnNext)
     public void onClick() {
         ArrayList<Product> mTempList = new ArrayList<>();
-        for (Product bean : mDataList) {
+        for (Product bean : mAdapter.getDataList()) {
 
             if (bean.getCount() > 0) {
                 mTempList.add(bean);
             }
         }
         if (mTempList.size() > 0) {
-            if (Utility.requestPermission(activity)) {
-                FragmentActivity.startActivity(activity, mTempList);
+            if (Utility.requestPermission(getActivity())) {
+                FragmentActivity.startActivity(getActivity(), mTempList);
             }
         } else {
-            toastShow("Select any item");
+            showToast("Select any item");
         }
     }
 
-    private void prepareProductData() {
-        Product Product = new Product("Mad Max: Fury Road", "Action & Adventure", "2015");
-        mDataList.add(Product);
+    @Override
+    public void onBackPressed() {
+        if (mSearchView.isSearchOpen()) {
+            mSearchView.closeSearch();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
-        Product = new Product("Inside Out", "Animation, Kids & Family", "2015");
-        mDataList.add(Product);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search, menu);
 
-        Product = new Product("Star Wars: Episode VII - The Force Awakens", "Action", "2015");
-        mDataList.add(Product);
+        MenuItem item = menu.findItem(R.id.action_search);
+        mSearchView.setMenuItem(item);
 
-        Product = new Product("Shaun the Sheep", "Animation", "2015");
-        mDataList.add(Product);
-
-        Product = new Product("The Martian", "Science Fiction & Fantasy", "2015");
-        mDataList.add(Product);
-
-        Product = new Product("Mission: Impossible Rogue Nation", "Action", "2015");
-        mDataList.add(Product);
-
-        Product = new Product("Up", "Animation", "2009");
-        mDataList.add(Product);
-
-        Product = new Product("Star Trek", "Science Fiction", "2009");
-        mDataList.add(Product);
-
-        Product = new Product("The LEGO Product", "Animation", "2014");
-        mDataList.add(Product);
-
-        Product = new Product("Iron Man", "Action & Adventure", "2008");
-        mDataList.add(Product);
-
-        Product = new Product("Aliens", "Science Fiction", "1986");
-        mDataList.add(Product);
-
-        Product = new Product("Chicken Run", "Animation", "2000");
-        mDataList.add(Product);
-
-        Product = new Product("Back to the Future", "Science Fiction", "1985");
-        mDataList.add(Product);
-
-        Product = new Product("Raiders of the Lost Ark", "Action & Adventure", "1981");
-        mDataList.add(Product);
-
-        Product = new Product("Goldfinger", "Action & Adventure", "1965");
-        mDataList.add(Product);
-
-        Product = new Product("Guardians of the Galaxy", "Science Fiction & Fantasy", "2014");
-        mDataList.add(Product);
-
-        mAdapter.notifyDataSetChanged();
+        return true;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        ButterKnife.bind(getActivity());
 
+        setSupportActionBar(toolbar);
         mDataList = new LinkedList<>();
-        mAdapter = new ProductAdapter(mDataList) {
-            @Override
-            protected void onItemClick(View v, int position) {
-                Product bean = mDataList.get(position);
+        mAdapter = new ProductAdapter(mDataList);
 
-                switch (v.getId()) {
-
-                    case R.id.btnAdd: {
-                        int count = bean.getCount();
-                        bean.setCount(count + 1);
-                        break;
-                    }
-
-                    case R.id.btnRemove: {
-                        int count = bean.getCount();
-                        bean.setCount(count - 1);
-                        break;
-                    }
-
-                }
-
-                mAdapter.notifyItemChanged(position);
-            }
-        };
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
 
-        prepareProductData();
+        getNetworking().getHome(new Networking.Listener() {
+
+            @Override
+            public void onCompleted(String result) {
+
+                try {
+                    Home home = Response.getHome(result);
+
+                    if (home.isStatus()) {
+                        mDataList.addAll(home.getProduct());
+                        mAdapter.notifyDataSetChanged();
+                    } else {
+                       showToast(home.getMsg());
+                    }
+
+                } catch (Exception e) {
+
+                    Utility.log_d(e.getMessage(), e);
+                }
+            }
+        });
+
+        mSearchView.setEllipsize(true);
+        mSearchView.setVoiceSearch(true);
+        mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Utility.log_d("onQueryTextSubmit " + query);
+                mAdapter.getFilter().filter(query);
+                mSearchView.setSuggestions(null);
+                mSearchView.dismissSuggestions();
+                mSearchView.clearFocus();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Utility.log_d("onQueryTextChange " + newText);
+                return true;
+            }
+        });
+        mSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                Utility.log_d("onSearchViewShown ");
+                // Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                Utility.log_d("onSearchViewClosed ");
+                mAdapter.getFilter().filter("");
+                // Do some magic
+            }
+        });
 
     }
 
@@ -146,5 +159,20 @@ public class MainActivity extends BaseActivity {
         activity.finishAffinity();
     }
 
-}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK) {
+            ArrayList<String> matches = intent.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (matches != null && matches.size() > 0) {
+                String searchWrd = matches.get(0);
+                if (!TextUtils.isEmpty(searchWrd)) {
+                    mSearchView.setQuery(searchWrd, false);
+                }
+            }
 
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, intent);
+    }
+
+}
