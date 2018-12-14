@@ -7,7 +7,7 @@ import com.agira.bhinfotech.utility.Utility;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
-public class Networking implements AppConstant {
+public class IonService implements AppConstant {
 
     private Context _context;
 
@@ -15,7 +15,7 @@ public class Networking implements AppConstant {
         void onCompleted(String result);
     }
 
-    public Networking(Context _context) {
+    public IonService(Context _context) {
 
         this._context = _context;
     }

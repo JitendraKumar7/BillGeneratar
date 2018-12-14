@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_3sdp"
+    app:cardBackgroundColor="@color/colorBack"
     app:cardCornerRadius="@dimen/_6sdp">
 
     <RelativeLayout
@@ -76,10 +77,10 @@
                 android:id="@+id/txtCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
                 android:layout_gravity="center"
+                android:fontFamily="sans-serif"
                 android:text="0"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/_15sdp"
                 android:textStyle="bold" />
 

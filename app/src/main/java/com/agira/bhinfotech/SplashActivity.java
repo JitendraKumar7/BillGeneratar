@@ -5,9 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.agira.bhinfotech.ui.MainActivity;
+import com.agira.bhinfotech.utility.Utility;
 
 public class SplashActivity extends AppCompatActivity implements Runnable {
-
 
     @Override
     public void run() {
@@ -22,7 +22,8 @@ public class SplashActivity extends AppCompatActivity implements Runnable {
 
         final int DELAY = 3000;
         Handler mHandler = new Handler();
-        mHandler.postDelayed(this, DELAY);
+        boolean b = mHandler.postDelayed(this, DELAY);
+        Utility.log_d(String.format("Post Delayed %s", b));
 
     }
 

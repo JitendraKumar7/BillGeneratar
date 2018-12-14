@@ -23,8 +23,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:title="@string/app_name"
-                app:titleTextColor="@color/colorWhite" />
+                app:title="  ">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/app_name"
+                    android:textColor="@color/colorWhite" />
+
+            </android.support.v7.widget.Toolbar>
 
             <com.miguelcatalan.materialsearchview.MaterialSearchView
                 android:id="@+id/search_view"

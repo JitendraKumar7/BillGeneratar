@@ -142,7 +142,7 @@ public class InvoiceFragment extends BaseFragment {
 
         RowInvoice(LayoutInflater inflater) {
             this._rowView = inflater.inflate(R.layout.ui_row_invoice_item, null);
-            ButterKnife.bind(_rowView);
+            ButterKnife.bind(this, _rowView);
         }
 
         private void setTxtView(int index, String value) {

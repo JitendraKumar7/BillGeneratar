@@ -14,7 +14,7 @@ import android.view.MenuItem;
 
 import com.agira.bhinfotech.R;
 import com.agira.bhinfotech.adapter.ProductAdapter;
-import com.agira.bhinfotech.app.Networking;
+import com.agira.bhinfotech.app.IonService;
 import com.agira.bhinfotech.modal.Response;
 import com.agira.bhinfotech.modal.Product;
 import com.agira.bhinfotech.modal.response.Home;
@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
 
-        getNetworking().getHome(new Networking.Listener() {
+        getIonService().getHome(new IonService.Listener() {
 
             @Override
             public void onCompleted(String result) {
