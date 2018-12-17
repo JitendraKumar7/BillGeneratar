@@ -1,4 +1,4 @@
-package com.agira.bhinfotech.lib.interfaces;
+package com.agira.bhinfotech.lib.pdf.interfaces;
 
 import java.io.File;
 

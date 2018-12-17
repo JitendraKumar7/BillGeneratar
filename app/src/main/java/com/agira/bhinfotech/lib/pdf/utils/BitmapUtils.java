@@ -1,4 +1,4 @@
-package com.agira.bhinfotech.lib.utils;
+package com.agira.bhinfotech.lib.pdf.utils;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;

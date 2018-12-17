@@ -11,6 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.agira.bhinfotech.R;
 import com.agira.bhinfotech.adapter.ProductAdapter;
@@ -35,30 +38,38 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.search_view)
-    MaterialSearchView mSearchView;
+    @BindView(R.id.linearLayout)
+    LinearLayout linearLayout;
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
 
+    @BindView(R.id.search_view)
+    MaterialSearchView mSearchView;
+
     private List<Product> mDataList;
     private ProductAdapter mAdapter;
 
-    @OnClick(R.id.btnNext)
-    public void onClick() {
-        ArrayList<Product> mTempList = new ArrayList<>();
-        for (Product bean : mAdapter.getDataList()) {
-
-            if (bean.getCount() > 0) {
-                mTempList.add(bean);
-            }
-        }
-        if (mTempList.size() > 0) {
-            if (Utility.requestPermission(getActivity())) {
-                FragmentActivity.startActivity(getActivity(), mTempList);
-            }
+    @OnClick({R.id.btnAdd,
+            R.id.btnNext})
+    public void onClick(View v) {
+        if (v.getId() == R.id.btnAdd) {
+            AddActivity.startActivity(getActivity());
         } else {
-            showToast("Select any item");
+            ArrayList<Product> mTempList = new ArrayList<>();
+            for (Product bean : mAdapter.getDataList()) {
+
+                if (bean.getCount() > 0) {
+                    mTempList.add(bean);
+                }
+            }
+            if (mTempList.size() > 0) {
+                if (Utility.requestPermission(getActivity())) {
+                    FragmentActivity.startActivity(getActivity(), mTempList);
+                }
+            } else {
+                showToast("Select any item");
+            }
         }
     }
 
@@ -100,24 +111,18 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onCompleted(String result) {
 
-                try {
-                    Home home = Response.getHome(result);
+                Home home = Response.getHome(result);
 
-                    if (home.isStatus()) {
-                        mDataList.addAll(home.getProduct());
-                        mAdapter.notifyDataSetChanged();
-                    } else {
-                       showToast(home.getMsg());
-                    }
-
-                } catch (Exception e) {
-
-                    Utility.log_d(e.getMessage(), e);
+                if (home.isStatus()) {
+                    mDataList.addAll(home.getProduct());
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    showToast(home.getMsg());
                 }
+
             }
         });
 
-        mSearchView.setEllipsize(true);
         mSearchView.setVoiceSearch(true);
         mSearchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
@@ -133,21 +138,21 @@ public class MainActivity extends BaseActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 Utility.log_d("onQueryTextChange " + newText);
-                return true;
+                return false;
             }
         });
         mSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
+                linearLayout.setVisibility(View.GONE);
                 Utility.log_d("onSearchViewShown ");
-                // Do some magic
             }
 
             @Override
             public void onSearchViewClosed() {
-                Utility.log_d("onSearchViewClosed ");
+                linearLayout.setVisibility(View.VISIBLE);
                 mAdapter.getFilter().filter("");
-                // Do some magic
+                Utility.log_d("onSearchViewClosed ");
             }
         });
 

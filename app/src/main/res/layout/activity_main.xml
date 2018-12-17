@@ -11,7 +11,8 @@
         android:id="@+id/appbarlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/search_layover_bg">
+        android:background="@color/search_layover_bg"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <FrameLayout
             android:id="@+id/toolbar_container"
@@ -23,7 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:title="  ">
+                app:title="  "
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
                 <TextView
                     android:id="@+id/toolbar_title"
@@ -41,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="visible" />
+
         </FrameLayout>
 
     </android.support.design.widget.AppBarLayout>
@@ -52,19 +55,41 @@
         android:layout_weight="1"
         android:clipToPadding="false"
         android:padding="@dimen/_3sdp"
-        tools:context=".ui.MainActivity"
         tools:listitem="@layout/ui_row_product" />
 
-    <Button
-        android:id="@+id/btnNext"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
-        android:background="@color/colorPrimaryDark"
-        android:fontFamily="sans-serif"
-        android:gravity="center"
-        android:text="@string/btnNext"
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/_15sdp"
-        android:textStyle="bold" />
+        android:layout_height="@dimen/_40sdp">
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="@string/btnAdd"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="@string/btnNext"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold"
+            tools:ignore="ButtonStyle" />
+
+    </LinearLayout>
 
 </LinearLayout>

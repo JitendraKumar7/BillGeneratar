@@ -35,6 +35,9 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
+        <activity android:name=".ui.AddActivity"/>
+        <activity android:name=".lib.img.CropImageActivity" />
+
     </application>
 
 </manifest>

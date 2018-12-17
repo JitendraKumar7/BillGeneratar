@@ -1,4 +1,4 @@
-package com.agira.bhinfotech.lib.viewRenderer;
+package com.agira.bhinfotech.lib.pdf.viewRenderer;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.agira.bhinfotech.lib.interfaces.RendererView;
 import com.agira.bhinfotech.utility.Utility;
 
 /**

@@ -1,4 +1,4 @@
-package com.agira.bhinfotech.lib;
+package com.agira.bhinfotech.lib.pdf;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,9 +7,9 @@ import android.graphics.Bitmap;
 import android.os.Environment;
 import android.os.Handler;
 
-import com.agira.bhinfotech.lib.interfaces.Callback;
-import com.agira.bhinfotech.lib.utils.BitmapUtils;
-import com.agira.bhinfotech.lib.viewRenderer.AbstractViewRenderer;
+import com.agira.bhinfotech.lib.pdf.interfaces.Callback;
+import com.agira.bhinfotech.lib.pdf.utils.BitmapUtils;
+import com.agira.bhinfotech.lib.pdf.viewRenderer.AbstractViewRenderer;
 import com.agira.bhinfotech.utility.Utility;
 import com.pdfjet.Image;
 import com.pdfjet.ImageType;
