@@ -31,6 +31,8 @@ import android.os.Build;
 import android.util.TypedValue;
 import android.view.View;
 
+import com.agira.bhinfotech.R;
+
 /*
  * Modified from version in AOSP.
  *

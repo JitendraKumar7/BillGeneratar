@@ -3,16 +3,24 @@
 
     <FrameLayout
         android:id="@+id/btn_cancel"
-        style="@style/Crop.ActionButton">
+        style="@style/Crop.ActionButton"
+        android:background="@color/colorPrimary">
 
-        <TextView style="@style/Crop.ActionButtonText.Cancel" />
+        <TextView
+            style="@style/Crop.ActionButtonText.Cancel"
+            android:textColor="@color/colorWhite" />
+
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/btn_done"
-        style="@style/Crop.ActionButton">
+        style="@style/Crop.ActionButton"
+        android:background="@color/colorPrimary">
 
-        <TextView style="@style/Crop.ActionButtonText.Done" />
+        <TextView
+            style="@style/Crop.ActionButtonText.Done"
+            android:textColor="@color/colorWhite" />
+
     </FrameLayout>
 
 </LinearLayout>

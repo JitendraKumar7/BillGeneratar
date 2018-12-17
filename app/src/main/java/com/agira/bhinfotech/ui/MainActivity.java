@@ -1,9 +1,11 @@
 package com.agira.bhinfotech.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +14,6 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.agira.bhinfotech.R;
 import com.agira.bhinfotech.adapter.ProductAdapter;
@@ -32,14 +32,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import dmax.dialog.SpotsDialog;
 
 public class MainActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @BindView(R.id.linearLayout)
-    LinearLayout linearLayout;
+    @BindView(R.id.btnNext)
+    AppCompatButton btnNext;
 
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -49,27 +50,23 @@ public class MainActivity extends BaseActivity {
 
     private List<Product> mDataList;
     private ProductAdapter mAdapter;
+    private AlertDialog alertDialog;
 
-    @OnClick({R.id.btnAdd,
-            R.id.btnNext})
-    public void onClick(View v) {
-        if (v.getId() == R.id.btnAdd) {
-            AddActivity.startActivity(getActivity());
+    @OnClick(R.id.btnNext)
+    public void onClick() {
+        ArrayList<Product> mTempList = new ArrayList<>();
+        for (Product bean : mAdapter.getDataList()) {
+
+            if (bean.getCount() > 0) {
+                mTempList.add(bean);
+            }
+        }
+        if (mTempList.size() > 0) {
+            if (Utility.requestPermission(getActivity())) {
+                FragmentActivity.startActivity(getActivity(), mTempList);
+            }
         } else {
-            ArrayList<Product> mTempList = new ArrayList<>();
-            for (Product bean : mAdapter.getDataList()) {
-
-                if (bean.getCount() > 0) {
-                    mTempList.add(bean);
-                }
-            }
-            if (mTempList.size() > 0) {
-                if (Utility.requestPermission(getActivity())) {
-                    FragmentActivity.startActivity(getActivity(), mTempList);
-                }
-            } else {
-                showToast("Select any item");
-            }
+            showToast("Please Select");
         }
     }
 
@@ -93,7 +90,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(getActivity());
@@ -106,6 +103,10 @@ public class MainActivity extends BaseActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
 
+        alertDialog = new SpotsDialog.Builder()
+                .setContext(this)
+                .build();
+        alertDialog.show();
         getIonService().getHome(new IonService.Listener() {
 
             @Override
@@ -119,7 +120,7 @@ public class MainActivity extends BaseActivity {
                 } else {
                     showToast(home.getMsg());
                 }
-
+                alertDialog.dismiss();
             }
         });
 
@@ -144,13 +145,13 @@ public class MainActivity extends BaseActivity {
         mSearchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
             public void onSearchViewShown() {
-                linearLayout.setVisibility(View.GONE);
+                btnNext.setVisibility(View.GONE);
                 Utility.log_d("onSearchViewShown ");
             }
 
             @Override
             public void onSearchViewClosed() {
-                linearLayout.setVisibility(View.VISIBLE);
+                btnNext.setVisibility(View.VISIBLE);
                 mAdapter.getFilter().filter("");
                 Utility.log_d("onSearchViewClosed ");
             }
@@ -165,7 +166,21 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_add) {
+            AddActivity.startActivity(getActivity());
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK) {
             ArrayList<String> matches = intent.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             if (matches != null && matches.size() > 0) {

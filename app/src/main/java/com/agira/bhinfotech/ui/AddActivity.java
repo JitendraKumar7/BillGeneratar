@@ -2,24 +2,56 @@ package com.agira.bhinfotech.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.agira.bhinfotech.R;
+import com.agira.bhinfotech.lib.img.Crop;
 import com.agira.bhinfotech.ui.base.BaseActivity;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class AddActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.add_ivLogo)
+    ImageView resultView;
+
+    @OnClick({R.id.add_ivLogo,
+            R.id.add_btnSubmit})
+    void onClick(View v) {
+
+        switch (v.getId()) {
+
+            case R.id.add_ivLogo: {
+                Crop.pickImage(getActivity());
+                break;
+            }
+
+            case R.id.add_btnSubmit: {
+                break;
+            }
+        }
+    }
+
+    private void beginCrop(Uri source) {
+        Uri destination = Uri.fromFile(new File(getCacheDir(), "cropped"));
+        Crop.of(source, destination).asSquare().start(getActivity());
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         ButterKnife.bind(getActivity());
@@ -49,19 +81,21 @@ public class AddActivity extends BaseActivity {
         activity.startActivity(intent);
     }
 
-    /*
-    * Crop.of(inputUri, outputUri).asSquare().start(activity)
-    *
-    * @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent result) {
-        if (requestCode == Crop.REQUEST_CROP && resultCode == RESULT_OK) {
-            doSomethingWithCroppedImage(outputUri);
+    private void handleCrop(int resultCode, Intent result) {
+        if (resultCode == RESULT_OK) {
+            resultView.setImageURI(Crop.getOutput(result));
+        } else if (resultCode == Crop.RESULT_ERROR) {
+            showToast(Crop.getError(result).getMessage());
         }
     }
-    *
-    *
-    * Crop.pickImage(activity)
-    *
-    * */
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent result) {
+        if (requestCode == Crop.REQUEST_PICK && resultCode == RESULT_OK) {
+            beginCrop(result.getData());
+        } else if (requestCode == Crop.REQUEST_CROP) {
+            handleCrop(resultCode, result);
+        }
+    }
 
 }

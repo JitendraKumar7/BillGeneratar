@@ -24,19 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:title="  "
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-                <TextView
-                    android:id="@+id/toolbar_title"
-                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/app_name"
-                    android:textColor="@color/colorWhite" />
-
-            </android.support.v7.widget.Toolbar>
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:title="@string/app_name" />
 
             <com.miguelcatalan.materialsearchview.MaterialSearchView
                 android:id="@+id/search_view"
@@ -57,39 +46,17 @@
         android:padding="@dimen/_3sdp"
         tools:listitem="@layout/ui_row_product" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnNext"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp">
-
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:text="@string/btnAdd"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_15sdp"
-            android:textStyle="bold"
-            tools:ignore="ButtonStyle" />
-
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:fontFamily="sans-serif"
-            android:gravity="center"
-            android:text="@string/btnNext"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_15sdp"
-            android:textStyle="bold"
-            tools:ignore="ButtonStyle" />
-
-    </LinearLayout>
+        android:layout_height="@dimen/_40sdp"
+        android:background="@color/colorPrimary"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="@string/btnNext"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/_15sdp"
+        android:textStyle="bold"
+        tools:ignore="ButtonStyle" />
 
 </LinearLayout>

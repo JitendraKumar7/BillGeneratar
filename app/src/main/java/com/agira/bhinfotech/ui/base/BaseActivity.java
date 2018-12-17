@@ -37,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity implements AppConst
     }
 
     @SuppressLint("ShowToast")
-    protected void showToast(String msg) {
+    public void showToast(String msg) {
         if (mToast == null) {
             mToast = Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT);
         }
@@ -48,7 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity implements AppConst
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Utility.requestPermission(getActivity());
