@@ -50,7 +50,7 @@
         android:id="@+id/btnNext"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_40sdp"
-        android:background="@color/colorPrimary"
+        android:background="@color/colorYellow"
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="@string/btnNext"
