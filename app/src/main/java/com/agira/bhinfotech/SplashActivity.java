@@ -4,8 +4,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.agira.bhinfotech.ui.MainActivity;
-import com.agira.bhinfotech.utility.Utility;
+import com.agira.bhinfotech.ui.HomeActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -18,7 +17,7 @@ public class SplashActivity extends AppCompatActivity {
 
             @Override
             public void run() {
-                MainActivity.startActivity(SplashActivity.this);
+                HomeActivity.startActivity(SplashActivity.this);
                 // https://github.com/koush/ion
             }
         };

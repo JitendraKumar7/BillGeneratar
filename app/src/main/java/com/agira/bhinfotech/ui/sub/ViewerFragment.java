@@ -14,8 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.agira.bhinfotech.R;
-import com.agira.bhinfotech.lib.pdf.CreateDocument;
-import com.agira.bhinfotech.lib.pdf.viewRenderer.AbstractViewRenderer;
+import angira.bhinfotech.library.pdf.CreateDocument;
+import angira.bhinfotech.library.pdf.viewRenderer.AbstractViewRenderer;
 import com.agira.bhinfotech.ui.base.BaseFragment;
 import com.agira.bhinfotech.ui.dio.EmailDialogFragment;
 import com.agira.bhinfotech.ui.dio.MobileDialogFragment;

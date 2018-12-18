@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.agira.bhinfotech.lib.img;
+package com.agira.bhinfotech.ui;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -35,6 +35,14 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.agira.bhinfotech.R;
+import angira.bhinfotech.library.crop.Crop;
+import angira.bhinfotech.library.crop.CropImageView;
+import angira.bhinfotech.library.crop.CropUtil;
+import angira.bhinfotech.library.crop.HighlightView;
+import angira.bhinfotech.library.crop.ImageViewTouchBase;
+import angira.bhinfotech.library.crop.Log;
+import angira.bhinfotech.library.crop.MonitoredActivity;
+import angira.bhinfotech.library.crop.RotateBitmap;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -95,7 +103,7 @@ public class CropImageActivity extends MonitoredActivity {
     private void setupViews() {
         setContentView(R.layout.crop__activity_crop);
 
-        imageView = (CropImageView) findViewById(R.id.crop_image);
+        imageView =  findViewById(R.id.crop_image);
         imageView.context = this;
         imageView.setRecycler(new ImageViewTouchBase.Recycler() {
             @Override

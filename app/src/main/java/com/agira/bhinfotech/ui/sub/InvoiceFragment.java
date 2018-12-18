@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.agira.bhinfotech.R;
-import com.agira.bhinfotech.lib.pdf.viewRenderer.AbstractViewRenderer;
+import angira.bhinfotech.library.pdf.viewRenderer.AbstractViewRenderer;
 import com.agira.bhinfotech.modal.Product;
 import com.agira.bhinfotech.ui.FragmentActivity;
 import com.agira.bhinfotech.ui.base.BaseFragment;

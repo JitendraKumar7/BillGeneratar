@@ -2,5 +2,5 @@
     android:shape="oval">
     <stroke
         android:width="@dimen/_3sdp"
-        android:color="#FF00897b" />
+        android:color="#FFBC01" />
 </shape>

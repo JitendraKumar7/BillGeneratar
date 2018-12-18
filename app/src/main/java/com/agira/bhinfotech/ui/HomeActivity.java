@@ -34,7 +34,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dmax.dialog.SpotsDialog;
 
-public class MainActivity extends BaseActivity {
+public class HomeActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -48,9 +48,9 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.search_view)
     MaterialSearchView mSearchView;
 
+    private AlertDialog mDialog;
     private List<Product> mDataList;
     private ProductAdapter mAdapter;
-    private AlertDialog alertDialog;
 
     @OnClick(R.id.btnNext)
     public void onClick() {
@@ -92,7 +92,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home);
         ButterKnife.bind(getActivity());
 
         setSupportActionBar(toolbar);
@@ -103,10 +103,11 @@ public class MainActivity extends BaseActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mAdapter);
 
-        alertDialog = new SpotsDialog.Builder()
+        mDialog = new SpotsDialog.Builder()
                 .setContext(this)
                 .build();
-        alertDialog.show();
+
+        mDialog.show();
         getIonService().getHome(new IonService.Listener() {
 
             @Override
@@ -120,7 +121,7 @@ public class MainActivity extends BaseActivity {
                 } else {
                     showToast(home.getMsg());
                 }
-                alertDialog.dismiss();
+                mDialog.dismiss();
             }
         });
 
@@ -160,7 +161,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public static void startActivity(Activity activity) {
-        Intent intent = new Intent(activity, MainActivity.class);
+        Intent intent = new Intent(activity, HomeActivity.class);
         activity.startActivity(intent);
         activity.finishAffinity();
     }
@@ -173,6 +174,27 @@ public class MainActivity extends BaseActivity {
         int id = item.getItemId();
         if (id == R.id.action_add) {
             AddActivity.startActivity(getActivity());
+
+            /*BackgroundMail.newBuilder(getActivity())
+                    .withUsername("jitendra7.meo@gmail.com")
+                    .withPassword("jk@8076219176")
+                    .withMailto("jitendrasoam90@gmail.com")
+                    .withType(BackgroundMail.TYPE_PLAIN)
+                    .withSubject("this is the subject")
+                    .withBody("this is the body")
+                    .withOnSuccessCallback(new BackgroundMail.OnSuccessCallback() {
+                        @Override
+                        public void onSuccess() {
+                            Utility.log_d("onSuccess");
+                        }
+                    })
+                    .withOnFailCallback(new BackgroundMail.OnFailCallback() {
+                        @Override
+                        public void onFail() {
+                            Utility.log_d("onFail");
+                        }
+                    })
+                    .send();*/
             return true;
         }
 

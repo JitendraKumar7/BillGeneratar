@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.agira.bhinfotech.R;
-import com.agira.bhinfotech.lib.img.Crop;
+import angira.bhinfotech.library.crop.Crop;
 import com.agira.bhinfotech.ui.base.BaseActivity;
 
 import java.io.File;
